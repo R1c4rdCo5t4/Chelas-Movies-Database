@@ -1,0 +1,47 @@
+<div class="movie">
+
+    {{#with movie}}
+        <h1>{{fullTitle}}</h1>
+
+        <div class="single-movie">
+            <div>
+                <img src="{{image}}"/>
+            </div>
+            <div>
+                <p><span class="movie-details-title">Genre: </span>{{genres}}</p>
+                <p><span class="movie-details-title">Year: </span>{{year}}</p>
+                <p><span class="movie-details-title">Rating: </span>{{imDbRating}}</p>
+                <p><span class="movie-details-title">Duration: </span>{{runtimeStr}}</p>
+                <p><span class="movie-details-title">Plot: </span>{{plot}}</p>
+                <p><span class="movie-details-title">Directors: </span>{{directors}}</p>
+                <p><span class="movie-details-title">Cast: </span>{{stars}}</p>
+                <p><span class="movie-details-title">Writers: </span>{{writers}}</p>
+                <p><span class="movie-details-title">Awards: </span>{{awards}}</p>
+                {{/with}}
+
+                {{#if name}}
+                <form action="/groups/{{groups.0.id}}" method="POST" id="form">
+                    <select name="groups" id="select-group" onchange="updateAction()" required>
+
+                            {{#if groups}}
+                                <option value="" selected disabled>Choose Group</option>
+                            {{else}}
+                                <option value="" selected disabled>No Groups</option>
+                            {{/if}}
+
+                            {{#each groups}}
+                                <option value="{{id}}">{{name}}</option>
+                            {{/each}}
+                    </select>
+               
+                    
+                    {{#with movie}}
+                        <input type="hidden" name="movieId" value="{{id}}">
+                        <button type="submit">Add to Group</button>
+                    {{/with}}
+                </form>
+                {{/if}}
+                
+            </div>
+        </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="single-group">
+    <div class="group">
+
+        {{#with group}}
+            <div id="editable">
+                <button 
+                    id="edit-name-btn" 
+                    class="fa fa-edit" 
+                    onclick="updateElementState('groupName', 'edit-name-btn', '{{../token}}', '{{id}}')">
+                </button>
+
+                <h1 id="groupName">{{name}}</h1>
+                
+                <h3><span>Description: </span>
+                <button 
+                    id="edit-desc-btn" 
+                    class="fa fa-edit" 
+                    onclick="updateElementState('groupDesc', 'edit-desc-btn', '{{../token}}', '{{id}}')">
+                </button>
+                <span id="groupDesc">{{description}}</span></h3>
+            </div>
+
+            <h3><span>Total Movies: </span>{{movieCount}}</h3>
+            <h3><span>Total Duration: </span>{{totalDuration}}</h3>
+            
+
+            {{#each movies}}
+            <li>
+                <a href="../movies/{{id}}">{{title}}</a>
+                <button
+                    class="fa fa-trash"
+                    onclick="onDeleteMovieFromGroup('{{../../token}}', '{{../id}}', '{{id}}')">
+                </button>
+            </li>
+            {{/each}}
+        
+        </ul>
+        </h2>
+        <br><br>
+        <div class="group-btns">
+            <button onclick="onDeleteGroup('{{../token}}', '{{id}}')">Delete Group</button>
+        </div>
+        {{/with}}
+    </div>
+</div>

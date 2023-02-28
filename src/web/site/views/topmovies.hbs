@@ -1,0 +1,18 @@
+<div class="topmovies">
+    <h1>Top Movies</h1>
+    <ul>
+        {{#each movies}}
+            <li class="topmovie">
+                <div class="movie-img">
+                    <a href="/movies/{{id}}"><img src="{{image}}" alt="movie-image"/></a>
+                </div>
+                <div class="movie-info">
+                    <h3>{{rank}}. <a href="/movies/{{id}}">{{fullTitle}}</a></h3>
+                    <h3>{{crew}}</h3>
+                </div>
+                
+            </li>
+        {{/each}}
+    </ul>
+</div>
+

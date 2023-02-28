@@ -1,0 +1,590 @@
+openapi: 3.0.1
+info:
+  title: Chelas Movies Database
+  description: Movies API using IMDB API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - description: Localhost server for testing API
+    url: http://localhost:8080/
+
+tags:
+- name: Users
+- name: Movies
+- name: Groups
+
+paths:
+  /api/users:
+    post:
+      tags:
+      - Users
+      summary: adds a user
+      description: Adds a user to the system
+      operationId: createUser
+      requestBody:
+        description: User to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUser'
+        required: false
+      responses:
+        201:
+          description: user created
+          content:
+            application/json:
+              schema:
+                required:
+                - token
+                type: object
+                properties:
+                  token:
+                    type: string
+                    format: uuid
+        400:
+          description: Invalid input, object invalid
+          content: {}
+      x-codegen-request-body-name: user
+  /api/movies/top:
+    get:
+      tags:
+      - Movies
+      summary: get top movies
+      description: Get top movies up to 250
+      operationId: getTopMovies
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          minimum: 1
+          maximum: 250
+          type: integer
+          example: 30
+      responses:
+        200:
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+        400:
+          description: bad input parameter
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequest'
+  /api/movies/search:
+    get:
+      tags:
+      - Movies
+      summary: search movie title
+      description: Searches for a movie using its title
+      operationId: searchMovie
+      parameters:
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string 
+          example: Cars
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 250
+      responses:
+        200:
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+        400:
+          description: bad input parameter
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequest'
+  /api/movies/:movieId:
+    get:
+      tags:
+      - Movies
+      summary: get a particular movie
+      description: Get the details of the movie, its Title, Image, Genre,
+        Year, Rating, Duration, Plot, Directors, Cast, Writers, Awards
+      operationId: getMovie
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: movieId
+        required: true
+        in: path
+        schema:
+          type: string
+          format: string
+      responses:
+        200:
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+        400:
+          description: bad input parameter
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequest'
+        404:
+          description: not found
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+  /api/groups:
+    get:
+      tags:
+      - Groups
+      summary: get a list of groups
+      description: List all groups
+      operationId: getGroups
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          example: ef604e80-a351-4d13-b78f-c888f3e63b60
+      responses:
+        200:
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Group'
+        400:
+          description: bad input parameter
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequest'
+        401:
+          description: unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+    post:
+      tags:
+      - Groups
+      summary: create new group
+      description: Create group providing its name and description
+      operationId: createGroup
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: Group to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewGroup'
+        required: false
+      responses:
+        201:
+          description: group created
+          content:
+            application/json:
+              schema:
+                required:
+                - uri
+                type: object
+                properties:
+                  uri:
+                    type: string
+                    format: uri
+        400:
+          description: bad input parameter
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequest'
+        401:
+          description: unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+  /api/groups/{groupId}:
+    get:
+      tags:
+      - Groups
+      summary: get movies in group
+      description: Get the details of a group, with its name, description, 
+        the names and total duration of the included movies
+      operationId: getGroup
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: groupId
+        required: true
+        in: path
+        schema:
+          type: string
+          format: number
+      responses:
+        200:
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        400:
+          description: bad input parameter
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequest'
+        401:
+          description: unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        404:
+          description: not found
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+    put:
+      tags:
+      - Groups
+      summary: update group info
+      description: Edit group by changing its name and description
+      operationId: updateGroup
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: groupId
+        required: true
+        in: path
+        schema:
+          type: string
+          format: number
+      requestBody:
+        description: info to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewGroup'
+        required: false
+      responses:
+        200:
+          description: group updated
+          content:
+            application/json:
+              schema:
+                required:
+                - uri
+                type: object
+                properties:
+                  uri:
+                    type: string
+                    format: uri
+        400:
+          description: bad input parameter
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequest'
+        401:
+          description: unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        404:
+          description: not found
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+    delete:
+      tags:
+      - Groups
+      summary: delete a group
+      description: Delete a group
+      operationId: deleteGroup
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: groupId
+        required: true
+        in: path
+        schema:
+          type: string
+          format: number
+      responses:
+        200:
+          description: group deleted
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deleted'
+        400:
+          description: bad input parameter
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequest'
+        401:
+          description: unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        404:
+          description: not found
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+    post:
+      tags:
+      - Groups
+      summary: add movie to group
+      description: Add a movie to a group
+      operationId: addMovieToGroup
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: groupId
+        required: true
+        in: path
+        schema:
+          type: string
+          format: number
+      requestBody:
+        description: Movie to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewMovie'
+        required: false
+      responses:
+        201:
+          description: movie created
+          content:
+            application/json:
+              schema:
+                required:
+                - uri
+                type: object
+                properties:
+                  uri:
+                    type: string
+                    format: uri
+        400:
+          description: bad input parameter
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequest'
+        401:
+          description: unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        404:
+          description: not found
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+  /api/groups/{groupId}/{movieId}:
+    delete:
+      tags:
+      - Groups
+      summary: delete a movie
+      description: Remove a movie from a group
+      operationId: deleteMovieFromGroup
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: groupId
+        required: true
+        in: path
+        schema:
+          type: string
+          format: number
+      - name: movieId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        200:
+          description: movie deleted
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deleted'
+        400:
+          description: bad input parameter
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequest'
+        401:
+          description: unauthorized
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+        404:
+          description: not found
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    NewMovie:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+          example: tt1375666
+    Movie:
+      required:
+      - id
+      - title
+      - duration
+      type: object
+      properties:
+        id:
+          type: string
+          example: tt1375666
+        title:
+          type: string
+          example: Inception
+        duration:
+          type: integer
+    Group:
+      required:
+      - id
+      - name
+      - description
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Favourites
+        description:
+          type: string
+          example: Group with my favourite movies
+    NewGroup:
+      required:
+      - name
+      - description
+      type: object
+      properties:
+        name:
+          type: string
+          example: Favourites
+        description:
+          type: string
+          example: Group with my favourite movies
+    NewUser:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          example: joao
+    InvalidRequest:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Missing required parameter"
+    Unauthorized:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Invalid or missing Authorization token"
+    Deleted:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Deleted successfully"
+    NotFound:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Not found"

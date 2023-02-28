@@ -1,0 +1,41 @@
+
+<div id="auth">
+
+      <form action="/auth/signin" method="POST">
+        <h1>Sign In</h1>
+        <label for="username">Username:</label>
+        <input type="text" name="name" placeholder="Enter your username" maxlength="30"required>
+
+        <label for="password">Password:</label>
+        <div class="password-container">
+            <input type="password" name="password" id="login-password" placeholder="Enter your password" maxlength="30" required>
+            <button type="button" onclick="togglePasswordVisibility('login-password', 'login-show-hide')" class="fa fa-eye" id="login-show-hide"></button>
+        </div>
+
+        <span class="error-message">{{signInErrorMessage}}</span>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <form action="/auth/signup" method="POST">
+        <h1>Sign Up</h1>
+        <label for="username">Username:</label>
+        <input type="text" name="name" id="username" placeholder="Enter a username" maxlength="30" required>
+
+        <label for="password">Password:</label>
+        <div class="password-container">
+            <input type="password" id="signup-password" name="password" placeholder="Enter a password" minlength="8" maxlength="30" required> 
+            <button type="button" onclick="togglePasswordVisibility('signup-password', 'signup-show-hide')" class="fa fa-eye" id="signup-show-hide"></button>
+        </div>
+
+       
+        <label>Confirm Password:</label>
+        <div class="password-container">
+            <input type="password" id="confirm-password" placeholder="Confirm password" maxlength="30" required>
+            <button type="button" onclick="togglePasswordVisibility('confirm-password', 'confirm-show-hide')" class="fa fa-eye" id="confirm-show-hide"></button>
+        </div>
+        
+        <span id="error-message" class="error-message">{{signUpErrorMessage}}</span>
+        <button type="submit" onclick="return validatePassword()">Sign Up</button>
+    </form>
+</div>

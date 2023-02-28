@@ -1,0 +1,245 @@
+[
+  {
+    "id": 0,
+    "name": "admin",
+    "password": "12345678",
+    "token": "ef604e80-a351-4d13-b78f-c888f3e63b60",
+    "createdGroups": 6,
+    "groups": [
+      {
+        "name": "My Favorite Movies!!!!",
+        "description": "My best description ever!!!!!!",
+        "id": 0,
+        "movies": [
+          {
+            "id": "tt0848228",
+            "title": "The Avengers",
+            "duration": 143
+          },
+          {
+            "id": "tt0111161",
+            "title": "The Shawshank Redemption",
+            "duration": 142
+          }
+        ]
+      },
+      {
+        "name": "My group",
+        "description": "sdgfd",
+        "id": 2,
+        "movies": [
+          {
+            "id": "tt0133093",
+            "title": "The Matrix",
+            "duration": 136
+          },
+          {
+            "id": "tt10872600",
+            "title": "Spider-Man: No Way Home",
+            "duration": 148
+          }
+        ]
+      },
+      {
+        "name": "Group for my vacactions",
+        "description": "ii go hike in the moutains while watching netflix",
+        "id": 5,
+        "movies": [
+          {
+            "id": "tt0111161",
+            "title": "The Shawshank Redemption",
+            "duration": 142
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "R1c4rdCo5t4",
+    "password": "12345678",
+    "token": "7775585e-70d2-4fbc-b25f-b70236e318dd",
+    "createdGroups": 18,
+    "groups": [
+      {
+        "name": "Movies",
+        "description": "Group with my favorite movies",
+        "id": 0,
+        "movies": [
+          {
+            "id": "tt0109830",
+            "title": "Forrest Gump",
+            "duration": 142
+          },
+          {
+            "id": "tt1375666",
+            "title": "Inception",
+            "duration": 148
+          },
+          {
+            "id": "tt0111161",
+            "title": "The Shawshank Redemption",
+            "duration": 142
+          }
+        ]
+      },
+      {
+        "name": "Marvel Movies",
+        "description": "MCU Movies",
+        "id": 6,
+        "movies": [
+          {
+            "id": "tt4154796",
+            "title": "Avengers: Endgame",
+            "duration": 181
+          },
+          {
+            "id": "tt0848228",
+            "title": "The Avengers",
+            "duration": 143
+          },
+          {
+            "id": "tt4154756",
+            "title": "Avengers: Infinity War",
+            "duration": 149
+          },
+          {
+            "id": "tt4154664",
+            "title": "Captain Marvel",
+            "duration": 123
+          },
+          {
+            "id": "tt10872600",
+            "title": "Spider-Man: No Way Home",
+            "duration": 148
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "user-test",
+    "password": "12345678",
+    "token": "177060ce-b5e7-404b-8109-47b295919039",
+    "createdGroups": 2,
+    "groups": [
+      {
+        "name": "group-test",
+        "description": "group-test-description",
+        "id": 1,
+        "movies": []
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Rogerio",
+    "password": "12345678",
+    "token": "f2c5e7e5-bfda-47b7-9f15-2de188a014ce",
+    "createdGroups": 19,
+    "groups": [
+      {
+        "name": "group-test",
+        "description": "group-test-description",
+        "id": 1,
+        "movies": [
+          {
+            "id": "tt0167260",
+            "title": "The Lord of the Rings: The Return of the King",
+            "duration": 201
+          },
+          {
+            "id": "tt0120737",
+            "title": "The Lord of the Rings: The Fellowship of the Ring",
+            "duration": 178
+          }
+        ]
+      },
+      {
+        "name": "Rogerio's Group",
+        "description": "Favorite Rogerio's Movies",
+        "id": 3,
+        "movies": [
+          {
+            "id": "tt0109830",
+            "title": "Forrest Gump",
+            "duration": 142
+          },
+          {
+            "id": "tt0108052",
+            "title": "Schindler's List",
+            "duration": 195
+          },
+          {
+            "id": "tt0111161",
+            "title": "The Shawshank Redemption",
+            "duration": 142
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "wartuga",
+    "password": "12345678",
+    "token": "df1d6f73-7274-4bdc-8b1a-cacd989b0dd9",
+    "createdGroups": 2,
+    "groups": [
+      {
+        "name": "test",
+        "description": "test",
+        "id": 0,
+        "movies": [
+          {
+            "id": "tt0111161",
+            "title": "The Shawshank Redemption",
+            "duration": 142
+          },
+          {
+            "id": "tt5884052",
+            "title": "Pokémon Detective Pikachu",
+            "duration": 104
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Ricardo Costa",
+    "password": "12345678",
+    "token": "4b41f4c8-ebbe-4593-b26d-4fb0c4e97115",
+    "createdGroups": 2,
+    "groups": [
+      {
+        "name": "group",
+        "description": "desc",
+        "id": 1,
+        "movies": [
+          {
+            "id": "tt0111161",
+            "title": "The Shawshank Redemption",
+            "duration": 142
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Diogo",
+    "password": "12345678",
+    "token": "fcafd7a3-24fc-4b7d-9093-c70e9070c570",
+    "createdGroups": 1,
+    "groups": [
+      {
+        "name": "testEdited",
+        "description": "test",
+        "id": 0,
+        "movies": []
+      }
+    ]
+  }
+]

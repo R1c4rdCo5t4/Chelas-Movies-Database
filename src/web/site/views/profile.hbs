@@ -1,0 +1,20 @@
+<div class="profile">
+
+    {{#with user}}
+    <div class="profile-container">
+
+        <h1>{{name}}</h1>
+        
+        <p>Total groups: {{totalGroups}}</p>
+        <p>Total movies: {{totalMovies}}</p>
+        <p>Total runtime: {{totalDuration}}</p>
+
+        <br>
+        <h2>Groups</h2>
+        {{#each groups}}
+            <p>{{name}} - {{movies.length}}</p>
+        {{/each}}
+    </div>
+    {{/with}}
+
+</div>
